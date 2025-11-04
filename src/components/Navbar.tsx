@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
-            <img src={logo} alt="HirePhaze" className="h-12 w-auto mix-blend-multiply dark:mix-blend-normal dark:brightness-200" />
+            <img src={logo} alt="HirePhaze" className="h-12 w-auto" style={{ mixBlendMode: 'multiply' }} />
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
