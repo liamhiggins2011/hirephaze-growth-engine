@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -81,22 +81,9 @@ const CTA = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-foreground mb-1">Call Us</div>
-                  <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                    +1 (234) 567-8900
+                  <a href="tel:832-493-3924" className="text-muted-foreground hover:text-primary transition-colors">
+                    832-493-3924
                   </a>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <div className="font-semibold text-foreground mb-1">Visit Us</div>
-                  <p className="text-muted-foreground">
-                    123 Business Ave, Suite 100<br />
-                    New York, NY 10001
-                  </p>
                 </div>
               </div>
             </div>
