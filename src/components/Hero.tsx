@@ -1,37 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import heroOffice from "@/assets/hero-office.jpg";
-import { useEffect, useRef } from "react";
 
 const Hero = () => {
-  const gcalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-
-    const script = document.createElement('script');
-    script.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
-    script.async = true;
-    script.onload = () => {
-      if (gcalRef.current && (window as any).calendar) {
-        (window as any).calendar.schedulingButton.load({
-          url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true',
-          color: '#0077f5',
-          label: 'Schedule Consultation',
-          target: gcalRef.current,
-        });
-      }
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      if (document.head.contains(link)) document.head.removeChild(link);
-      if (document.body.contains(script)) document.body.removeChild(script);
-    };
-  }, []);
   return (
     <section className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -63,11 +34,14 @@ const Hero = () => {
             that transform your hiring process and accelerate your growth.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <div ref={gcalRef} />
-            <Button size="lg" variant="outline">
-              Explore Services
-            </Button>
+          <div className="mt-8 max-w-4xl mx-auto">
+            <iframe 
+              src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true" 
+              style={{ border: 0 }} 
+              width="100%" 
+              height="600"
+              title="Schedule Consultation"
+            />
           </div>
           
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
