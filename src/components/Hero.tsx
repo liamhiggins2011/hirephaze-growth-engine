@@ -1,10 +1,64 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const Hero = () => {
-  const handleScheduleClick = () => {
-    window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true', '_blank', 'width=800,height=800');
-  };
+  const calendarButtonRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Load Google Calendar scheduling CSS
+    const link = document.createElement('link');
+    link.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
+    // Add custom styling for the Google Calendar button
+    const style = document.createElement('style');
+    style.textContent = `
+      .calendar-scheduling-button {
+        background: hsl(211 100% 48%) !important;
+        color: white !important;
+        border: none !important;
+        padding: 0.625rem 1.5rem !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        border-radius: 0.75rem !important;
+        cursor: pointer !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+      }
+      .calendar-scheduling-button:hover {
+        opacity: 0.9 !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Load and initialize Google Calendar scheduling script
+    const script = document.createElement('script');
+    script.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
+    script.async = true;
+    
+    script.onload = () => {
+      if (calendarButtonRef.current && (window as any).calendar) {
+        (window as any).calendar.schedulingButton.load({
+          url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true',
+          color: '#0C7FDC',
+          label: 'Schedule Consultation',
+          target: calendarButtonRef.current,
+        });
+      }
+    };
+    
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.head.contains(link)) document.head.removeChild(link);
+      if (document.head.contains(style)) document.head.removeChild(style);
+      if (document.body.contains(script)) document.body.removeChild(script);
+    };
+  }, []);
   return (
     <section className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-background -z-10" />
@@ -30,10 +84,7 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="group" onClick={handleScheduleClick}>
-              Schedule Consultation
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <div ref={calendarButtonRef} className="inline-flex" />
             <Button size="lg" variant="outline">
               Explore Services
             </Button>
