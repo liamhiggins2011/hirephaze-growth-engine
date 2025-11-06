@@ -16,7 +16,7 @@ const Index = () => {
         
         <div className="flex-1 flex flex-col">
           <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border/50">
-            <div className="flex items-center h-16 px-4">
+            <div className="flex items-center h-24 px-4">
               <Navbar />
             </div>
           </header>
