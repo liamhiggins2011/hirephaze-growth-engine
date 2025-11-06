@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import heroOffice from "@/assets/hero-office.jpg";
+import BookingModal from "./BookingModal";
+import { useState } from "react";
 
 const Hero = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   return (
     <section className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -34,15 +37,17 @@ const Hero = () => {
             that transform your hiring process and accelerate your growth.
           </p>
           
-          <div className="mt-8 max-w-4xl mx-auto">
-            <iframe 
-              src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true" 
-              style={{ border: 0 }} 
-              width="100%" 
-              height="600"
-              title="Schedule Consultation"
-            />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button size="lg" className="group" onClick={() => setIsBookingOpen(true)}>
+              Schedule Consultation
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button size="lg" variant="outline">
+              Explore Services
+            </Button>
           </div>
+          
+          <BookingModal open={isBookingOpen} onOpenChange={setIsBookingOpen} />
           
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
             <div className="text-center">
