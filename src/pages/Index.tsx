@@ -17,9 +17,6 @@ const Index = () => {
         <div className="flex-1 flex flex-col">
           <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border/50">
             <div className="flex items-center h-16 px-4">
-              <SidebarTrigger className="mr-4 hover:bg-primary/10 transition-colors p-1 rounded-lg">
-                <img src={logo} alt="Menu" className="h-8 w-auto" style={{ mixBlendMode: 'darken' }} />
-              </SidebarTrigger>
               <Navbar />
             </div>
           </header>
