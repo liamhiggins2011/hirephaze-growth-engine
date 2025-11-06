@@ -1,5 +1,6 @@
-import { Home, Briefcase, Award, MessageCircle, Menu } from "lucide-react";
+import { Home, Briefcase, Award, MessageCircle } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import logo from "@/assets/hirephaze-logo.png";
 
 import {
   Sidebar,
@@ -42,13 +43,13 @@ export function AppSidebar() {
       <SidebarContent className="gap-0 pt-8">
         <div className="px-3 mb-8">
           {open && (
-            <div className="animate-fade-in">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
-                HirePhaze
-              </h2>
-              <p className="text-xs text-muted-foreground">
-                Navigate your journey
-              </p>
+            <div className="animate-fade-in flex justify-center">
+              <img 
+                src={logo} 
+                alt="HirePhaze" 
+                className="h-16 w-auto" 
+                style={{ mixBlendMode: 'darken' }}
+              />
             </div>
           )}
         </div>
