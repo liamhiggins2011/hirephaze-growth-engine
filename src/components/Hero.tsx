@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useEffect, useRef } from "react";
+import heroOffice from "@/assets/hero-office.jpg";
 
 const Hero = () => {
   const calendarButtonRef = useRef<HTMLDivElement>(null);
@@ -61,7 +62,14 @@ const Hero = () => {
   }, []);
   return (
     <section className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-background -z-10" />
+      <div className="absolute inset-0 -z-10">
+        <img 
+          src={heroOffice} 
+          alt="Modern professional office environment" 
+          className="w-full h-full object-cover opacity-5"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-background" />
+      </div>
       
       <div className="container mx-auto max-w-6xl">
         <div className="text-center animate-fade-in">

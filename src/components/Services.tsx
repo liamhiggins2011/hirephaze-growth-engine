@@ -1,11 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { Search, Users, Target, MessageSquare, FileText } from "lucide-react";
+import recruitmentConsulting from "@/assets/recruitment-consulting.jpg";
+import resumeServices from "@/assets/resume-services.jpg";
 
 const services = [
   {
     icon: Target,
     title: "Retained Search",
     description: "Dedicated executive search partnerships for critical leadership positions. We become an extension of your team, committed to finding the perfect fit.",
+    image: recruitmentConsulting,
   },
   {
     icon: Users,
@@ -26,6 +29,7 @@ const services = [
     icon: FileText,
     title: "Resume Optimization",
     description: "Professional resume and LinkedIn profile enhancement to maximize your visibility and attract the right opportunities.",
+    image: resumeServices,
   },
 ];
 
@@ -48,18 +52,29 @@ const Services = () => {
             return (
               <Card 
                 key={service.title}
-                className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-card border-border animate-fade-in"
+                className="group p-0 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-card border-border animate-fade-in overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-primary" />
+                {service.image && (
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src={service.image} 
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
               </Card>
             );
           })}

@@ -1,4 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
+import teamSuccess from "@/assets/team-success.jpg";
 
 const benefits = [
   {
@@ -58,20 +59,12 @@ const WhyChooseUs = () => {
           </div>
           
           <div className="relative animate-fade-in">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 via-accent/20 to-primary/10 p-8 flex items-center justify-center">
-              <div className="text-center space-y-6">
-                <div className="inline-block p-4 rounded-full bg-background shadow-lg">
-                  <div className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    10+
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-foreground mb-2">Years of Excellence</div>
-                  <p className="text-muted-foreground">
-                    Delivering exceptional recruitment solutions across industries
-                  </p>
-                </div>
-              </div>
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
+              <img 
+                src={teamSuccess} 
+                alt="Diverse team of professionals in modern office" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
