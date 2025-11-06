@@ -162,22 +162,21 @@ const CTA = () => {
         </div>
         
         <div className="mt-16 animate-fade-in">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-4">
-              <Calendar className="w-6 h-6 text-primary" />
+          <Card className="p-8 text-center bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-primary/10 mb-6">
+              <Calendar className="w-8 h-8 text-primary" />
             </div>
-            <h3 className="text-2xl font-bold text-foreground mb-2">Schedule a Consultation</h3>
-            <p className="text-muted-foreground">
-              Book a time that works best for you to discuss your hiring needs
+            <h3 className="text-2xl font-bold text-foreground mb-3">Schedule a Consultation</h3>
+            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+              Book a time that works best for you to discuss your hiring needs with our team
             </p>
-          </div>
-          
-          <Card className="overflow-hidden">
-            <iframe
-              src="https://calendar.app.google/9DUuJvMsLkVG6f9q7"
-              className="w-full h-[600px] border-0"
-              title="Schedule a consultation"
-            />
+            <Button 
+              size="lg"
+              onClick={() => window.open('https://calendar.app.google/9DUuJvMsLkVG6f9q7', '_blank')}
+              className="font-semibold"
+            >
+              Book Your Free Consultation
+            </Button>
           </Card>
         </div>
       </div>
