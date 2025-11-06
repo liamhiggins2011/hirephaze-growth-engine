@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").max(100),
@@ -20,6 +20,38 @@ const formSchema = z.object({
 
 const CTA = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const calendarButtonRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Load Google Calendar scheduling CSS
+    const link = document.createElement('link');
+    link.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
+    // Load and initialize Google Calendar scheduling script
+    const script = document.createElement('script');
+    script.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
+    script.async = true;
+    
+    script.onload = () => {
+      if (calendarButtonRef.current && (window as any).calendar) {
+        (window as any).calendar.schedulingButton.load({
+          url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true',
+          color: '#039BE5',
+          label: 'Book Your Free Consultation',
+          target: calendarButtonRef.current,
+        });
+      }
+    };
+    
+    document.body.appendChild(script);
+
+    return () => {
+      document.head.removeChild(link);
+      document.body.removeChild(script);
+    };
+  }, []);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -170,13 +202,7 @@ const CTA = () => {
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
               Book a time that works best for you to discuss your hiring needs with our team
             </p>
-            <Button 
-              size="lg"
-              onClick={() => window.open('https://calendar.app.google/9DUuJvMsLkVG6f9q7', '_blank')}
-              className="font-semibold"
-            >
-              Book Your Free Consultation
-            </Button>
+            <div ref={calendarButtonRef} className="inline-block" />
           </Card>
         </div>
       </div>
