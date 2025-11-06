@@ -1,7 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const Hero = () => {
+  const calendarButtonRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    // Load Google Calendar scheduling CSS
+    const link = document.createElement('link');
+    link.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
+    // Load and initialize Google Calendar scheduling script
+    const script = document.createElement('script');
+    script.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
+    script.async = true;
+    
+    script.onload = () => {
+      if (calendarButtonRef.current && (window as any).calendar) {
+        (window as any).calendar.schedulingButton.load({
+          url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true',
+          color: '#039BE5',
+          label: 'Schedule Consultation',
+          target: calendarButtonRef.current,
+        });
+      }
+    };
+    
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.head.contains(link)) document.head.removeChild(link);
+      if (document.body.contains(script)) document.body.removeChild(script);
+    };
+  }, []);
   return (
     <section className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-background -z-10" />
@@ -27,10 +60,7 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="group">
-              Schedule Consultation
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <div ref={calendarButtonRef} className="inline-block" />
             <Button size="lg" variant="outline">
               Explore Services
             </Button>
