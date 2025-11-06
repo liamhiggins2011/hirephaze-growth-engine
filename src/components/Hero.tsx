@@ -1,10 +1,42 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import heroOffice from "@/assets/hero-office.jpg";
+import { useEffect, useRef } from "react";
 
 const Hero = () => {
+  const hiddenGcalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
+    script.async = true;
+    script.onload = () => {
+      if (hiddenGcalRef.current && (window as any).calendar) {
+        (window as any).calendar.schedulingButton.load({
+          url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true',
+          color: '#039BE5',
+          label: 'Schedule Consultation',
+          target: hiddenGcalRef.current,
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.head.contains(link)) document.head.removeChild(link);
+      if (document.body.contains(script)) document.body.removeChild(script);
+    };
+  }, []);
+
   const handleScheduleClick = () => {
-    window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true', 'gcal', 'width=800,height=800');
+    const btn = hiddenGcalRef.current?.querySelector('button') as HTMLButtonElement | null;
+    if (btn) btn.click();
+    else window.open('https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true', '_blank');
   };
   return (
     <section className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -46,6 +78,8 @@ const Hero = () => {
               Explore Services
             </Button>
           </div>
+          
+          <div ref={hiddenGcalRef} className="sr-only" aria-hidden="true" />
           
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
             <div className="text-center">
