@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Calendar } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -158,6 +158,26 @@ const CTA = () => {
                 </Button>
               </form>
             </Form>
+          </Card>
+        </div>
+        
+        <div className="mt-16 animate-fade-in">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-4">
+              <Calendar className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-2xl font-bold text-foreground mb-2">Schedule a Consultation</h3>
+            <p className="text-muted-foreground">
+              Book a time that works best for you to discuss your hiring needs
+            </p>
+          </div>
+          
+          <Card className="overflow-hidden">
+            <iframe
+              src="https://calendar.app.google/9DUuJvMsLkVG6f9q7"
+              className="w-full h-[600px] border-0"
+              title="Schedule a consultation"
+            />
           </Card>
         </div>
       </div>
