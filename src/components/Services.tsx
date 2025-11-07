@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Search, Users, Target, MessageSquare, FileText } from "lucide-react";
 import recruitmentConsulting from "@/assets/recruitment-consulting.jpg";
 import resumeServices from "@/assets/resume-services.jpg";
+import onDemandRecruiting from "@/assets/on-demand-recruiting.jpg";
 
 const services = [
   {
@@ -12,8 +13,9 @@ const services = [
   },
   {
     icon: Users,
-    title: "Recruiting Process Outsourcing",
-    description: "Complete end-to-end recruitment solutions. From strategy to onboarding, we manage your entire hiring lifecycle with precision.",
+    title: "On-Demand Recruiting",
+    description: "Flexible recruiting power on your terms. Scale capacity instantly with vetted independent recruiters who embed into your process. Transparent metrics, your tools, no contracts locked to headcount. Elastic support when demand spikes.",
+    image: onDemandRecruiting,
   },
   {
     icon: Search,
