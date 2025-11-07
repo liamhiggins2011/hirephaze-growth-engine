@@ -1,5 +1,6 @@
-import { Home, Briefcase, Award, MessageCircle } from "lucide-react";
+import { Home, Briefcase, Award, MessageCircle, Layers } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/hirephaze-logo.png";
 
 import {
@@ -21,8 +22,18 @@ const navigationItems = [
   { title: "Contact", url: "#contact", icon: MessageCircle },
 ];
 
+const versionItems = [
+  { title: "Original", path: "/" },
+  { title: "v_Chat", path: "/v-chat" },
+  { title: "v_Kimi", path: "/v-kimi" },
+  { title: "v_Claude", path: "/v-claude" },
+  { title: "v_Grok", path: "/v-grok" },
+];
+
 export function AppSidebar() {
   const { open } = useSidebar();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.querySelector(sectionId);
@@ -86,6 +97,45 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
+        <SidebarGroup className="px-2 mt-4">
+          {open && (
+            <div className="px-2 py-2">
+              <div className="flex items-center gap-2 mb-2">
+                <Layers className="w-4 h-4 text-primary" />
+                <h4 className="text-xs font-semibold text-primary uppercase tracking-wider">
+                  Version Comparison
+                </h4>
+              </div>
+            </div>
+          )}
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-1">
+              {versionItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      onClick={() => navigate(item.path)}
+                      className={`rounded-lg transition-all duration-200 ${
+                        isActive
+                          ? "bg-primary/20 text-primary font-semibold"
+                          : "hover:bg-muted/50"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${
+                          isActive ? "bg-primary" : "bg-muted-foreground/30"
+                        }`} />
+                        {open && <span className="text-sm">{item.title}</span>}
+                      </div>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         {open && (
           <div className="mt-auto px-6 pb-8 animate-fade-in">
             <div className="p-4 rounded-xl bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 border border-primary/20">
@@ -94,7 +144,7 @@ export function AppSidebar() {
                 <p className="text-xs font-semibold text-primary">Quick Access</p>
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Use the menu to navigate through different sections instantly.
+                Compare different homepage versions using the Version Comparison menu.
               </p>
             </div>
           </div>
