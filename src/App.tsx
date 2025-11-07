@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import Services from "./pages/Services";
 import VChat from "./pages/VChat";
 import VKimi from "./pages/VKimi";
 import VClaude from "./pages/VClaude";
@@ -20,6 +21,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/v-chat" element={<VChat />} />
           <Route path="/v-kimi" element={<VKimi />} />
           <Route path="/v-claude" element={<VClaude />} />

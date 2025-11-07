@@ -3,6 +3,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import heroOffice from "@/assets/hero-office.jpg";
 import BookingModal from "./BookingModal";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -42,9 +43,11 @@ const Hero = () => {
               Schedule Consultation
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline">
-              Explore Services
-            </Button>
+            <Link to="/services">
+              <Button size="lg" variant="outline">
+                Explore Services
+              </Button>
+            </Link>
           </div>
           
           <BookingModal open={isBookingOpen} onOpenChange={setIsBookingOpen} />
