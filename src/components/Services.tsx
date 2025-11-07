@@ -3,6 +3,8 @@ import { Search, Users, Target, MessageSquare, FileText } from "lucide-react";
 import recruitmentConsulting from "@/assets/recruitment-consulting.jpg";
 import resumeServices from "@/assets/resume-services.jpg";
 import onDemandRecruiting from "@/assets/on-demand-recruiting.jpg";
+import talentSearch from "@/assets/talent-search.jpg";
+import careerCoaching from "@/assets/career-coaching.jpg";
 
 const services = [
   {
@@ -21,11 +23,13 @@ const services = [
     icon: Search,
     title: "Talent Search",
     description: "Proactive candidate sourcing across all levels. We tap into our extensive network to find both active and passive candidates.",
+    image: talentSearch,
   },
   {
     icon: MessageSquare,
     title: "Career Coaching",
     description: "Personalized coaching to help professionals navigate their career journey, develop leadership skills, and achieve their goals.",
+    image: careerCoaching,
   },
   {
     icon: FileText,
