@@ -12,7 +12,7 @@ const Hero = () => {
       <div className="absolute inset-0 -z-10">
         <img 
           src={heroOffice} 
-          alt="Modern professional office environment" 
+          alt="Recruiting consultant leading a discovery call with startup team in modern office" 
           className="w-full h-full object-cover opacity-5"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-background" />
@@ -27,16 +27,12 @@ const Hero = () => {
           </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-            On-Demand Recruiting for
-            <br />
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Lean, High-Growth Teams
-            </span>
+            On-Demand Recruiting for Startups & Growing Teams
           </h1>
           
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Flexible, founder-led hiring support without agency bloat — from startup to scale.
-          </p>
+          <h2 className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+            Flexible recruiting support designed for lean, high-growth teams. We provide on-demand recruiting, fractional recruiting services, and embedded talent solutions — no agency overhead, just results.
+          </h2>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button size="lg" className="group w-full sm:w-auto" onClick={() => setIsBookingOpen(true)}>

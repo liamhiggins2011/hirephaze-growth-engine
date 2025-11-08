@@ -65,7 +65,7 @@ const Services = () => {
                   <div className="h-48 overflow-hidden">
                     <img 
                       src={service.image} 
-                      alt={service.title}
+                      alt={`${service.title} - Professional recruiting services for ${service.title.toLowerCase()}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>

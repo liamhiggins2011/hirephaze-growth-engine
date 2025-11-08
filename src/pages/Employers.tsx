@@ -8,6 +8,7 @@ import { ArrowLeft, CheckCircle, Users, Clock, Target, TrendingUp } from "lucide
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import BookingModal from "@/components/BookingModal";
+import { Helmet } from "react-helmet";
 
 const pricingModels = [
   {
@@ -47,6 +48,12 @@ const EmployersPage = () => {
 
   return (
     <SidebarProvider>
+      <Helmet>
+        <title>HirePhaze for Employers – Fractional & On-Demand Recruiting Partner</title>
+        <meta name="description" content="Find qualified talent with a modern recruiting model built for lean teams. Simple pricing, founder-led delivery, and measurable results." />
+        <meta name="keywords" content="fractional recruiter, on-demand recruiting, embedded recruiting services, startup recruiting partner, tech recruiting" />
+        <link rel="canonical" href="https://hirephaze.com/employers" />
+      </Helmet>
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         <div className="flex-1 flex flex-col">
@@ -68,15 +75,11 @@ const EmployersPage = () => {
               {/* Hero Section */}
               <div className="text-center mb-16 animate-fade-in">
                 <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-                  Recruiting Support That Scales
-                  <br />
-                  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    With Your Team
-                  </span>
+                  Recruiting That Scales With You
                 </h1>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-                  Turn recruiting on when you need it. Turn it off when you don't. No agency bloat, no long-term contracts.
-                </p>
+                <h2 className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+                  HirePhaze delivers fractional recruiter support and on-demand recruiting services designed for startups and tech companies. Whether you need an embedded recruiting partner for a specific project or ongoing startup recruiting support, we scale with your team—no retainers, no agency bloat, just flexible talent solutions.
+                </h2>
                 <Button size="lg" onClick={() => setIsBookingOpen(true)}>
                   Schedule a 15-Min Call
                 </Button>
@@ -121,12 +124,14 @@ const EmployersPage = () => {
 
               {/* Pricing Models */}
               <section className="mb-20">
-                <h2 className="text-3xl font-bold text-center text-foreground mb-4">
-                  Simple, Flexible Pricing
-                </h2>
-                <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-                  Choose the model that fits your hiring needs. No surprises, no hidden fees.
-                </p>
+                <header className="text-center mb-12">
+                  <h2 className="text-3xl font-bold text-foreground mb-4">
+                    Simple, Flexible Pricing
+                  </h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Choose the model that fits your hiring needs. No surprises, no hidden fees.
+                  </p>
+                </header>
                 
                 <div className="grid md:grid-cols-3 gap-8">
                   {pricingModels.map((model, index) => (
@@ -154,9 +159,11 @@ const EmployersPage = () => {
 
               {/* Process */}
               <section className="mb-20">
-                <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-                  What Working Together Looks Like
-                </h2>
+                <header className="text-center mb-12">
+                  <h2 className="text-3xl font-bold text-foreground">
+                    How HirePhaze Works
+                  </h2>
+                </header>
                 
                 <div className="grid md:grid-cols-4 gap-6">
                   <Card className="p-6 text-center">
@@ -197,7 +204,7 @@ const EmployersPage = () => {
               <section className="text-center">
                 <Card className="p-12 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
                   <h2 className="text-3xl font-bold text-foreground mb-4">
-                    Ready to Hire Without the Overhead?
+                    Ready to Hire Smarter in 2025?
                   </h2>
                   <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                     Let's talk about your hiring needs. No pitch deck, no commitment—just a real conversation about what you're looking for.

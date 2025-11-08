@@ -18,6 +18,7 @@ const navigationItems = [
   { title: "Employers", url: "/employers", icon: Building2 },
   { title: "Candidates", url: "/candidates", icon: Users },
   { title: "Services", url: "/services", icon: Briefcase },
+  { title: "About", url: "/about", icon: Users },
   { title: "Contact", url: "/#contact", icon: MessageCircle },
 ];
 

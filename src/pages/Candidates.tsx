@@ -14,6 +14,7 @@ import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").max(100),
@@ -77,6 +78,12 @@ const CandidatesPage = () => {
 
   return (
     <SidebarProvider>
+      <Helmet>
+        <title>HirePhaze for Job Seekers – Career Coaching & Recruiting Connections</title>
+        <meta name="description" content="Get direct access to curated roles and transparent feedback. Explore open opportunities with HirePhaze." />
+        <meta name="keywords" content="career coaching, job seeker support, recruiter connections, remote roles, tech jobs, startup careers" />
+        <link rel="canonical" href="https://hirephaze.com/candidates" />
+      </Helmet>
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         <div className="flex-1 flex flex-col">
@@ -98,22 +105,20 @@ const CandidatesPage = () => {
               {/* Hero Section */}
               <div className="text-center mb-16 animate-fade-in">
                 <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-                  Join Our
-                  <br />
-                  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    Talent Network
-                  </span>
+                  Your Career, Guided by Real Recruiters
                 </h1>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Get matched with high-growth companies that actually value your skills. No spam, no ghosting, just real opportunities.
-                </p>
+                <h2 className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Get personalized help, open role access, and honest feedback — built around your goals. Whether you're exploring remote roles, seeking career coaching, or looking for recruiter connections in tech and startups, HirePhaze connects you with real opportunities.
+                </h2>
               </div>
 
               {/* Benefits */}
               <section className="mb-20">
-                <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-                  Why Join HirePhaze's Network?
-                </h2>
+                <header className="text-center mb-12">
+                  <h2 className="text-3xl font-bold text-foreground">
+                    Why Join HirePhaze's Network?
+                  </h2>
+                </header>
                 
                 <div className="grid md:grid-cols-2 gap-8">
                   {benefits.map((benefit, index) => (

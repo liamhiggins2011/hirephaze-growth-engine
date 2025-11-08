@@ -40,6 +40,9 @@ const Navbar = () => {
           <Link to="/services" className="text-foreground hover:text-primary transition-colors">
             Services
           </Link>
+          <Link to="/about" className="text-foreground hover:text-primary transition-colors">
+            About
+          </Link>
           <a href="#contact" className="text-foreground hover:text-primary transition-colors">
             Contact
           </a>

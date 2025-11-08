@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Employers from "./pages/Employers";
 import Candidates from "./pages/Candidates";
+import About from "./pages/About";
 import Auth from "./pages/Auth";
 import VChat from "./pages/VChat";
 import VKimi from "./pages/VKimi";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/services" element={<Services />} />
             <Route path="/employers" element={<Employers />} />
             <Route path="/candidates" element={<Candidates />} />
+            <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/v-chat" element={<VChat />} />
             <Route path="/v-kimi" element={<VKimi />} />
