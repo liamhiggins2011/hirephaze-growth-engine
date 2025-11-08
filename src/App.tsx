@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
+import Employers from "./pages/Employers";
+import Candidates from "./pages/Candidates";
 import Auth from "./pages/Auth";
 import VChat from "./pages/VChat";
 import VKimi from "./pages/VKimi";
@@ -25,6 +27,8 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/employers" element={<Employers />} />
+            <Route path="/candidates" element={<Candidates />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/v-chat" element={<VChat />} />
             <Route path="/v-kimi" element={<VKimi />} />

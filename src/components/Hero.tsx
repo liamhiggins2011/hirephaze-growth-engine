@@ -43,16 +43,16 @@ const Hero = () => {
               Schedule a 15-Min Discovery Call
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Link to="/#contact" className="w-full sm:w-auto">
+            <Link to="/employers" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="w-full sm:w-auto">
                 Submit a Role
               </Button>
             </Link>
           </div>
           
-          <a href="#talent-network" className="text-sm text-muted-foreground hover:text-primary transition-colors inline-block mt-4">
+          <Link to="/candidates" className="text-sm text-muted-foreground hover:text-primary transition-colors inline-block mt-4">
             I'm a candidate → View opportunities
-          </a>
+          </Link>
           
           <BookingModal open={isBookingOpen} onOpenChange={setIsBookingOpen} />
           

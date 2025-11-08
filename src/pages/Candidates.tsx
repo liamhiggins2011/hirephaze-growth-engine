@@ -1,0 +1,282 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { AppSidebar } from "@/components/AppSidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ArrowLeft, CheckCircle, Briefcase, TrendingUp, Users, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { toast } from "sonner";
+import { useState } from "react";
+
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required").max(100),
+  email: z.string().email("Invalid email address").max(255),
+  linkedin: z.string().url("Please enter a valid LinkedIn URL").max(500).optional().or(z.literal("")),
+  role: z.string().min(1, "Desired role is required").max(200),
+  message: z.string().max(1000).optional(),
+});
+
+const benefits = [
+  {
+    icon: Briefcase,
+    title: "Curated Opportunities",
+    description: "We work with high-growth startups and established tech companies hiring for real roles, not ghost jobs.",
+  },
+  {
+    icon: Heart,
+    title: "Honest Feedback",
+    description: "No ghosting. You'll get real, actionable feedback whether you're a fit or not.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Career Guidance",
+    description: "Optional resume review, interview prep, and salary negotiation support.",
+  },
+  {
+    icon: Users,
+    title: "Direct Access",
+    description: "Talk directly to the founder, not a junior recruiter reading from a script.",
+  },
+];
+
+const CandidatesPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      linkedin: "",
+      role: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    try {
+      // TODO: Implement actual submission to backend
+      console.log("Candidate submission:", values);
+      toast.success("Thanks for your interest! We'll be in touch soon.");
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Failed to submit. Please try again or email us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-background">
+        <AppSidebar />
+        <div className="flex-1 flex flex-col">
+          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-20 items-center">
+              <Navbar />
+            </div>
+          </header>
+          
+          <main className="flex-1">
+            <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
+              <Link to="/">
+                <Button variant="ghost" className="mb-8">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Home
+                </Button>
+              </Link>
+              
+              {/* Hero Section */}
+              <div className="text-center mb-16 animate-fade-in">
+                <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+                  Join Our
+                  <br />
+                  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    Talent Network
+                  </span>
+                </h1>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Get matched with high-growth companies that actually value your skills. No spam, no ghosting, just real opportunities.
+                </p>
+              </div>
+
+              {/* Benefits */}
+              <section className="mb-20">
+                <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+                  Why Join HirePhaze's Network?
+                </h2>
+                
+                <div className="grid md:grid-cols-2 gap-8">
+                  {benefits.map((benefit, index) => (
+                    <Card key={benefit.title} className="p-6 hover:shadow-lg transition-shadow" style={{ animationDelay: `${index * 100}ms` }}>
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <benefit.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground mb-2">{benefit.title}</h3>
+                      <p className="text-muted-foreground">{benefit.description}</p>
+                    </Card>
+                  ))}
+                </div>
+              </section>
+
+              {/* How It Works */}
+              <section className="mb-20">
+                <h2 className="text-3xl font-bold text-center text-foreground mb-4">
+                  How It Works
+                </h2>
+                <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+                  Simple, transparent, and respectful of your time
+                </p>
+                
+                <div className="grid md:grid-cols-3 gap-8">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-primary mb-2">1</div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Submit Your Info</h3>
+                    <p className="text-muted-foreground">Tell us about yourself and what you're looking for</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-primary mb-2">2</div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">We Match You</h3>
+                    <p className="text-muted-foreground">When relevant roles open up, we'll reach out with details</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-primary mb-2">3</div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Direct Intros</h3>
+                    <p className="text-muted-foreground">Skip the black hole—get connected directly to hiring teams</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Join Form */}
+              <section>
+                <Card className="p-8 max-w-2xl mx-auto">
+                  <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
+                    Join the Talent Network
+                  </h2>
+                  
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Full Name *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Jane Doe" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email Address *</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="jane@example.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="linkedin"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>LinkedIn Profile</FormLabel>
+                            <FormControl>
+                              <Input placeholder="https://linkedin.com/in/yourprofile" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="role"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>What role(s) are you looking for? *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g., Senior Product Manager, Engineering Lead" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Anything else we should know?</FormLabel>
+                            <FormControl>
+                              <Textarea 
+                                rows={4}
+                                placeholder="Location preferences, timeline, salary expectations, etc."
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <Button type="submit" className="w-full min-h-[44px]" disabled={isSubmitting}>
+                        {isSubmitting ? "Submitting..." : "Join Talent Network"}
+                      </Button>
+                      
+                      <p className="text-xs text-muted-foreground text-center">
+                        We respect your inbox. No spam, just relevant opportunities.
+                      </p>
+                    </form>
+                  </Form>
+                </Card>
+              </section>
+
+              {/* Optional Services */}
+              <section className="mt-20">
+                <Card className="p-8 bg-muted/30 text-center">
+                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                    Need Career Coaching or Resume Help?
+                  </h3>
+                  <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                    We offer optional career services including resume reviews, interview preparation, and salary negotiation coaching.
+                  </p>
+                  <Link to="/services">
+                    <Button variant="outline">
+                      Explore Career Services
+                    </Button>
+                  </Link>
+                </Card>
+              </section>
+            </div>
+          </main>
+          
+          <Footer />
+        </div>
+      </div>
+    </SidebarProvider>
+  );
+};
+
+export default CandidatesPage;

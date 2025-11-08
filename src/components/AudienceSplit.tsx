@@ -73,7 +73,7 @@ const AudienceSplit = () => {
               </li>
             </ul>
             
-            <Link to="/#contact">
+            <Link to="/candidates" className="w-full block">
               <Button size="lg" variant="outline" className="w-full">
                 Join Talent Network
               </Button>
