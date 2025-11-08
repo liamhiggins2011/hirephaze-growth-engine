@@ -16,6 +16,7 @@ const Hero = () => {
           className="w-full h-full object-cover opacity-5"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-background" />
+        <div className="absolute inset-0 bg-background/40 sm:bg-background/0" />
       </div>
       
       <div className="container mx-auto max-w-6xl">
@@ -26,29 +27,32 @@ const Hero = () => {
           </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-            Find Your Perfect Hire,
+            On-Demand Recruiting for
             <br />
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Every Phaze of the Way
+              Lean, High-Growth Teams
             </span>
           </h1>
           
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            From executive search to resume optimization, we deliver comprehensive staffing solutions 
-            that transform your hiring process and accelerate your growth.
+            Flexible, founder-led hiring support without agency bloat — from startup to scale.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="group" onClick={() => setIsBookingOpen(true)}>
-              Schedule Consultation
+            <Button size="lg" className="group w-full sm:w-auto" onClick={() => setIsBookingOpen(true)}>
+              Schedule a 15-Min Discovery Call
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Link to="/services">
-              <Button size="lg" variant="outline">
-                Explore Services
+            <Link to="/#contact" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                Submit a Role
               </Button>
             </Link>
           </div>
+          
+          <a href="#talent-network" className="text-sm text-muted-foreground hover:text-primary transition-colors inline-block mt-4">
+            I'm a candidate → View opportunities
+          </a>
           
           <BookingModal open={isBookingOpen} onOpenChange={setIsBookingOpen} />
           

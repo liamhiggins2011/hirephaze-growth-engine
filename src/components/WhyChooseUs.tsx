@@ -3,28 +3,24 @@ import teamSuccess from "@/assets/team-success.jpg";
 
 const benefits = [
   {
-    title: "Industry Expertise",
-    description: "Deep understanding of market dynamics and talent landscapes across multiple sectors",
+    title: "On-Demand, Not Overhead",
+    description: "Turn us up or down based on hiring volume. No bloated retainers or long-term commitments.",
   },
   {
-    title: "Proven Track Record",
-    description: "Hundreds of successful placements with a 98% client satisfaction rate",
+    title: "Founder-Led Delivery",
+    description: "You're working with someone who's shipped real searches, not an SDR reading a script.",
   },
   {
-    title: "Personalized Approach",
-    description: "Tailored strategies that align with your unique company culture and goals",
+    title: "Transparent, Flexible Models",
+    description: "Hourly, project-based, or embedded. Simple pricing written in plain English.",
   },
   {
-    title: "Speed & Efficiency",
-    description: "Streamlined processes that reduce time-to-hire without compromising quality",
+    title: "Built for Modern Teams",
+    description: "Remote, async, global talent—we design around how you actually work.",
   },
   {
-    title: "Extensive Network",
-    description: "Access to a vast pool of pre-vetted, qualified candidates across all levels",
-  },
-  {
-    title: "End-to-End Support",
-    description: "From initial consultation to post-placement follow-up, we're with you every step",
+    title: "No Agency Bloat",
+    description: "Fast decisions, direct communication, real accountability. No bureaucracy.",
   },
 ];
 
@@ -35,11 +31,10 @@ const WhyChooseUs = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-in">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">
-              Why Partner with HirePhaze?
+              Why Teams Choose HirePhaze
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              We're not just filling positions—we're building lasting partnerships and transforming 
-              careers. Our comprehensive approach ensures success at every phase of the hiring journey.
+              Modern recruiting without the corporate baggage. Flexible, transparent, and built for how you actually work.
             </p>
             <div className="space-y-4">
               {benefits.map((benefit, index) => (

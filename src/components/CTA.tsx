@@ -88,10 +88,10 @@ const CTA = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div className="animate-fade-in">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">
-              Ready to Transform Your Hiring?
+              Ready to Hire Smarter in 2025?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Let's discuss how HirePhaze can help you find the perfect talent or take your career to the next level.
+              Let's talk about your hiring needs—no sales pitch, just a real conversation about what you need.
             </p>
             
             <div className="space-y-6 mb-8">
@@ -185,8 +185,8 @@ const CTA = () => {
                   )}
                 />
                 
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                <Button type="submit" className="w-full min-h-[44px]" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Us Your Job Spec"}
                 </Button>
               </form>
             </Form>
@@ -198,9 +198,9 @@ const CTA = () => {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-primary/10 mb-6">
               <Calendar className="w-8 h-8 text-primary" />
             </div>
-            <h3 className="text-2xl font-bold text-foreground mb-3">Schedule a Consultation</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-3">Book a Discovery Call</h3>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Book a time that works best for you to discuss your hiring needs with our team
+              15 minutes to understand your needs, zero pressure
             </p>
             <div ref={calendarButtonRef} className="inline-block" />
           </Card>

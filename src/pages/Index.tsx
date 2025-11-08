@@ -1,12 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import AudienceSplit from "@/components/AudienceSplit";
+import HowItWorks from "@/components/HowItWorks";
 import Services from "@/components/Services";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import FounderSection from "@/components/FounderSection";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { AppSidebar } from "@/components/AppSidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import logo from "@/assets/hirephaze-logo.png";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Index = () => {
   return (
@@ -25,12 +27,15 @@ const Index = () => {
             <div id="hero">
               <Hero />
             </div>
+            <AudienceSplit />
+            <HowItWorks />
             <div id="services">
               <Services />
             </div>
             <div id="why-us">
               <WhyChooseUs />
             </div>
+            <FounderSection />
             <div id="contact">
               <CTA />
             </div>
