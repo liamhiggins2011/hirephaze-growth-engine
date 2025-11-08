@@ -101,8 +101,8 @@ const CTA = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-foreground mb-1">Email Us</div>
-                  <a href="mailto:contact@hirephaze.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    contact@hirephaze.com
+                  <a href="mailto:liam@hirephaze.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    liam@hirephaze.com
                   </a>
                 </div>
               </div>
