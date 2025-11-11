@@ -26,7 +26,7 @@ const Navbar = () => {
           onClick={toggleSidebar}
           className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
         >
-          <img src="/hirephaze-logo.png?v=2" alt="HirePhaze logo" className="h-10 md:h-12 w-auto" />
+          <img src="/hirephaze-logo.png?v=2" alt="HirePhaze logo" className="h-16 md:h-20 w-auto" />
         </button>
         
         <div className="hidden md:flex items-center space-x-8">
