@@ -40,7 +40,7 @@ export function AppSidebar() {
               <img 
                 src="/hirephaze-logo.png?v=2" 
                 alt="HirePhaze logo" 
-                className="h-12 w-auto"
+                className="h-24 w-auto"
               />
             </div>
           )}
