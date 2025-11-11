@@ -40,8 +40,7 @@ export function AppSidebar() {
               <img 
                 src="/hirephaze-logo.png" 
                 alt="HirePhaze" 
-                className="h-16 w-auto" 
-                style={{ mixBlendMode: 'darken' }}
+                className="h-16 w-auto"
               />
             </div>
           )}
