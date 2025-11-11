@@ -109,13 +109,14 @@ const handler = async (req: Request): Promise<Response> => {
         ...corsHeaders,
       },
     });
-  } catch (error: any) {
-    console.error("Error in contact form:", error);
-    
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("Error in contact form:", errorMessage);
+
     // Handle validation errors separately
     if (error instanceof z.ZodError) {
       return new Response(
-        JSON.stringify({ 
+        JSON.stringify({
           error: "Invalid input", 
           details: error.errors.map(e => e.message).join(", ")
         }),

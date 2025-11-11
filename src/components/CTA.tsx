@@ -11,6 +11,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useState, useEffect, useRef } from "react";
 
+type CalendarSchedulingButton = {
+  load: (config: { url: string; color: string; label: string; target: Element }) => void;
+};
+
+declare global {
+  interface Window {
+    calendar?: {
+      schedulingButton?: CalendarSchedulingButton;
+    };
+  }
+}
+
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").max(100),
   email: z.string().email("Invalid email address").max(255),
@@ -35,8 +47,10 @@ const CTA = () => {
     script.async = true;
     
     script.onload = () => {
-      if (calendarButtonRef.current && (window as any).calendar) {
-        (window as any).calendar.schedulingButton.load({
+      const schedulingButton = window.calendar?.schedulingButton;
+
+      if (calendarButtonRef.current && schedulingButton) {
+        schedulingButton.load({
           url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3hbfkRcYh8BHLtTfyTx2vChxVmG5vZGWnY82OOPtQPuZcJWFwFC2Gu0ePEd1nDtf-HzNKObws6?gv=true',
           color: '#039BE5',
           label: 'Book Your Free Consultation',
