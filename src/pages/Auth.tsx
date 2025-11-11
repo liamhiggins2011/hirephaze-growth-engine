@@ -142,7 +142,7 @@ const Auth = () => {
         </Link>
 
         <div className="flex justify-center mb-8">
-          <img src="/hirephaze-logo.png" alt="HirePhaze" className="h-[84px] w-auto" />
+          <img src="/hirephaze-logo.png" alt="HirePhaze" className="h-[105px] w-auto" />
         </div>
 
         <Tabs defaultValue="signin" className="w-full">
