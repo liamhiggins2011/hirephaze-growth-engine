@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
-import logo from "@/assets/hirephaze-logo.png";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -143,7 +142,7 @@ const Auth = () => {
         </Link>
 
         <div className="flex justify-center mb-8">
-          <img src={logo} alt="HirePhaze" className="h-20 w-auto" style={{ mixBlendMode: 'darken' }} />
+          <img src="/hirephaze-logo.png" alt="HirePhaze" className="h-20 w-auto" style={{ mixBlendMode: 'darken' }} />
         </div>
 
         <Tabs defaultValue="signin" className="w-full">

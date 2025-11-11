@@ -1,4 +1,3 @@
-import logo from "@/assets/hirephaze-logo.png";
 import { Linkedin, Twitter, Facebook } from "lucide-react";
 
 const Footer = () => {
@@ -7,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
-            <img src={logo} alt="HirePhaze" className="h-8 w-auto mb-4" style={{ filter: 'brightness(0) invert(1)' }} />
+            <img src="/hirephaze-logo.png" alt="HirePhaze" className="h-8 w-auto mb-4" style={{ filter: 'brightness(0) invert(1)' }} />
             <p className="text-secondary-foreground/80 mb-4">
               Transforming talent acquisition through innovative solutions and personalized service.
             </p>

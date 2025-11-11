@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/hirephaze-logo.png";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,7 +26,7 @@ const Navbar = () => {
           onClick={toggleSidebar}
           className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
         >
-          <img src={logo} alt="HirePhaze" className="h-16 w-auto" style={{ mixBlendMode: 'darken' }} />
+          <img src="/hirephaze-logo.png" alt="HirePhaze" className="h-16 w-auto" style={{ mixBlendMode: 'darken' }} />
         </button>
         
         <div className="hidden md:flex items-center space-x-8">

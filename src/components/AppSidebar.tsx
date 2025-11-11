@@ -1,5 +1,4 @@
 import { Home, Briefcase, Building2, Users, MessageCircle } from "lucide-react";
-import logo from "@/assets/hirephaze-logo.png";
 import { NavLink } from "@/components/NavLink";
 
 import {
@@ -39,7 +38,7 @@ export function AppSidebar() {
           {open && (
             <div className="animate-fade-in flex justify-center">
               <img 
-                src={logo} 
+                src="/hirephaze-logo.png" 
                 alt="HirePhaze" 
                 className="h-16 w-auto" 
                 style={{ mixBlendMode: 'darken' }}
