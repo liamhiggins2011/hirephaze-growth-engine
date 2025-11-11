@@ -38,9 +38,9 @@ export function AppSidebar() {
           {open && (
             <div className="animate-fade-in flex justify-center">
               <img 
-                src="/hirephaze-logo.png" 
-                alt="HirePhaze" 
-                className="h-[84px] w-auto"
+                src="/hirephaze-logo.png?v=2" 
+                alt="HirePhaze logo" 
+                className="h-12 w-auto"
               />
             </div>
           )}
