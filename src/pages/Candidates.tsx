@@ -65,11 +65,9 @@ const CandidatesPage = () => {
     setIsSubmitting(true);
     try {
       // TODO: Implement actual submission to backend
-      console.log("Candidate submission:", values);
       toast.success("Thanks for your interest! We'll be in touch soon.");
       form.reset();
     } catch (error) {
-      console.error("Error submitting form:", error);
       toast.error("Failed to submit. Please try again or email us directly.");
     } finally {
       setIsSubmitting(false);
