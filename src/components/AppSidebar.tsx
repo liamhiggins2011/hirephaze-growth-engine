@@ -1,4 +1,4 @@
-import { Home, Briefcase, Building2, Users, MessageCircle } from "lucide-react";
+import { Home, Briefcase, Building2, Users, MessageCircle, FileText } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
 import {
@@ -16,6 +16,7 @@ const navigationItems = [
   { title: "Home", url: "/", icon: Home },
   { title: "Employers", url: "/employers", icon: Building2 },
   { title: "Candidates", url: "/candidates", icon: Users },
+  { title: "Careers", url: "/careers", icon: FileText },
   { title: "Services", url: "/services", icon: Briefcase },
   { title: "About", url: "/about", icon: Users },
   { title: "Contact", url: "/#contact", icon: MessageCircle },
