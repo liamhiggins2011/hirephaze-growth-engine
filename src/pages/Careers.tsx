@@ -3,6 +3,8 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { AppSidebar } from "@/components/AppSidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -68,18 +70,26 @@ const Careers = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Careers | HirePhaze - Open Positions</title>
-        <meta
-          name="description"
-          content="Explore exciting career opportunities with HirePhaze partner companies. Find your next role in tech, sales, operations, and more."
-        />
-      </Helmet>
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full bg-background">
+        <AppSidebar />
+        
+        <div className="flex-1 flex flex-col">
+          <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border/50">
+            <div className="flex items-center h-24 px-4">
+              <Navbar />
+            </div>
+          </header>
 
-      <Navbar />
+          <Helmet>
+            <title>Careers | HirePhaze - Open Positions</title>
+            <meta
+              name="description"
+              content="Explore exciting career opportunities with HirePhaze partner companies. Find your next role in tech, sales, operations, and more."
+            />
+          </Helmet>
 
-      <main className="pt-24 pb-16">
+          <main className="flex-1 pb-16">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-16">
           <div className="container mx-auto px-4 text-center">
@@ -229,10 +239,12 @@ const Careers = () => {
             </CardContent>
           </Card>
         </section>
-      </main>
+          </main>
 
-      <Footer />
-    </div>
+          <Footer />
+        </div>
+      </div>
+    </SidebarProvider>
   );
 };
 

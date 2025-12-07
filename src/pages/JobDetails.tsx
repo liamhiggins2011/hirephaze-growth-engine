@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { AppSidebar } from "@/components/AppSidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -65,9 +67,30 @@ const applicationSchema = z.object({
 
 type ApplicationFormData = z.infer<typeof applicationSchema>;
 
+const PageLayout = ({ children, title }: { children: React.ReactNode; title?: string }) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen w-full bg-background">
+      <AppSidebar />
+      <div className="flex-1 flex flex-col">
+        <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border/50">
+          <div className="flex items-center h-24 px-4">
+            <Navbar />
+          </div>
+        </header>
+        {title && (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+        )}
+        {children}
+        <Footer />
+      </div>
+    </div>
+  </SidebarProvider>
+);
+
 const JobDetails = () => {
   const { jobId } = useParams<{ jobId: string }>();
-  const navigate = useNavigate();
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -120,7 +143,6 @@ const JobDetails = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file type and size
       const validTypes = [
         "application/pdf",
         "application/msword",
@@ -146,7 +168,6 @@ const JobDetails = () => {
     try {
       let resumeUrl = null;
 
-      // Upload resume if provided
       if (resumeFile) {
         const fileExt = resumeFile.name.split(".").pop();
         const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExt}`;
@@ -166,7 +187,6 @@ const JobDetails = () => {
         resumeUrl = urlData.publicUrl;
       }
 
-      // Save application to database
       const { error: insertError } = await supabase
         .from("job_applications")
         .insert({
@@ -193,9 +213,8 @@ const JobDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <main className="pt-24 pb-16 container mx-auto px-4">
+      <PageLayout title="Loading... | HirePhaze">
+        <main className="flex-1 pb-16 container mx-auto px-4 pt-8">
           <Skeleton className="h-8 w-32 mb-8" />
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
@@ -208,19 +227,14 @@ const JobDetails = () => {
             </div>
           </div>
         </main>
-        <Footer />
-      </div>
+      </PageLayout>
     );
   }
 
   if (error || !job) {
     return (
-      <div className="min-h-screen bg-background">
-        <Helmet>
-          <title>Job Not Found | HirePhaze</title>
-        </Helmet>
-        <Navbar />
-        <main className="pt-24 pb-16 container mx-auto px-4 text-center">
+      <PageLayout title="Job Not Found | HirePhaze">
+        <main className="flex-1 pb-16 container mx-auto px-4 text-center pt-16">
           <Briefcase className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-foreground mb-2">
             {error || "Job not found"}
@@ -235,25 +249,21 @@ const JobDetails = () => {
             </Button>
           </Link>
         </main>
-        <Footer />
-      </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <PageLayout title={`${job.title} | HirePhaze Careers`}>
       <Helmet>
-        <title>{job.title} | HirePhaze Careers</title>
         <meta
           name="description"
           content={`Apply for ${job.title} at ${job.company || "our partner company"}. ${job.location ? `Location: ${job.location}.` : ""}`}
         />
       </Helmet>
 
-      <Navbar />
-
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
+      <main className="flex-1 pb-16">
+        <div className="container mx-auto px-4 pt-8">
           {/* Back Link */}
           <Link
             to="/careers"
@@ -363,7 +373,7 @@ const JobDetails = () => {
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <Card className="sticky top-24">
+              <Card className="sticky top-32">
                 <CardHeader>
                   <CardTitle>Apply Now</CardTitle>
                 </CardHeader>
@@ -519,9 +529,7 @@ const JobDetails = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 };
 
