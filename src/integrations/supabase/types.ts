@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      discovery_submissions: {
+        Row: {
+          company_name: string | null
+          company_size: string | null
+          created_at: string
+          desired_role: string | null
+          email: string
+          hiring_timeline: string | null
+          id: string
+          industry: string | null
+          linkedin_url: string | null
+          message: string | null
+          name: string
+          phone: string | null
+          roles_to_fill: string | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          company_name?: string | null
+          company_size?: string | null
+          created_at?: string
+          desired_role?: string | null
+          email: string
+          hiring_timeline?: string | null
+          id?: string
+          industry?: string | null
+          linkedin_url?: string | null
+          message?: string | null
+          name: string
+          phone?: string | null
+          roles_to_fill?: string | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          company_name?: string | null
+          company_size?: string | null
+          created_at?: string
+          desired_role?: string | null
+          email?: string
+          hiring_timeline?: string | null
+          id?: string
+          industry?: string | null
+          linkedin_url?: string | null
+          message?: string | null
+          name?: string
+          phone?: string | null
+          roles_to_fill?: string | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       job_applications: {
         Row: {
           applicant_email: string

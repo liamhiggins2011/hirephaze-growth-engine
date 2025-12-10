@@ -4,25 +4,10 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, CheckCircle, Briefcase, TrendingUp, Users, Heart } from "lucide-react";
+import { ArrowLeft, Briefcase, TrendingUp, Users, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { toast } from "sonner";
-import { useState } from "react";
+import CandidateDiscoveryForm from "@/components/CandidateDiscoveryForm";
 import { Helmet } from "react-helmet";
-
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required").max(100),
-  email: z.string().email("Invalid email address").max(255),
-  linkedin: z.string().url("Please enter a valid LinkedIn URL").max(500).optional().or(z.literal("")),
-  role: z.string().min(1, "Desired role is required").max(200),
-  message: z.string().max(1000).optional(),
-});
 
 const benefits = [
   {
@@ -48,32 +33,6 @@ const benefits = [
 ];
 
 const CandidatesPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      linkedin: "",
-      role: "",
-      message: "",
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsSubmitting(true);
-    try {
-      // TODO: Implement actual submission to backend
-      toast.success("Thanks for your interest! We'll be in touch soon.");
-      form.reset();
-    } catch (error) {
-      toast.error("Failed to submit. Please try again or email us directly.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <SidebarProvider>
       <Helmet>
@@ -161,103 +120,13 @@ const CandidatesPage = () => {
                 </div>
               </section>
 
-              {/* Join Form */}
-              <section>
-                <Card className="p-8 max-w-2xl mx-auto">
-                  <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
-                    Join the Talent Network
-                  </h2>
-                  
-                  <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Full Name *</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Jane Doe" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Email Address *</FormLabel>
-                            <FormControl>
-                              <Input type="email" placeholder="jane@example.com" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="linkedin"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>LinkedIn Profile</FormLabel>
-                            <FormControl>
-                              <Input placeholder="https://linkedin.com/in/yourprofile" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="role"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>What role(s) are you looking for? *</FormLabel>
-                            <FormControl>
-                              <Input placeholder="e.g., Senior Product Manager, Engineering Lead" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Anything else we should know?</FormLabel>
-                            <FormControl>
-                              <Textarea 
-                                rows={4}
-                                placeholder="Location preferences, timeline, salary expectations, etc."
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <Button type="submit" className="w-full min-h-[44px]" disabled={isSubmitting}>
-                        {isSubmitting ? "Submitting..." : "Join Talent Network"}
-                      </Button>
-                      
-                      <p className="text-xs text-muted-foreground text-center">
-                        We respect your inbox. No spam, just relevant opportunities.
-                      </p>
-                    </form>
-                  </Form>
-                </Card>
+              {/* Discovery Form */}
+              <section className="mb-20" id="discovery">
+                <CandidateDiscoveryForm />
               </section>
 
               {/* Optional Services */}
-              <section className="mt-20">
+              <section>
                 <Card className="p-8 bg-muted/30 text-center">
                   <h3 className="text-2xl font-bold text-foreground mb-4">
                     Need Career Coaching or Resume Help?
