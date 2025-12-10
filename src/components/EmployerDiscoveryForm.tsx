@@ -75,7 +75,8 @@ const EmployerDiscoveryForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from("discovery_submissions").insert({
+      // Save to database
+      const { error: dbError } = await supabase.from("discovery_submissions").insert({
         type: "employer",
         name: values.name,
         email: values.email,
@@ -88,11 +89,33 @@ const EmployerDiscoveryForm = () => {
         message: values.message || null,
       });
 
-      if (error) throw error;
+      if (dbError) throw dbError;
+
+      // Send email notification
+      const { error: emailError } = await supabase.functions.invoke("send-discovery-notification", {
+        body: {
+          type: "employer",
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          companyName: values.companyName,
+          companySize: values.companySize,
+          industry: values.industry,
+          rolesToFill: values.rolesToFill,
+          hiringTimeline: values.hiringTimeline,
+          message: values.message,
+        },
+      });
+
+      if (emailError) {
+        console.error("Email notification error:", emailError);
+        // Don't fail the submission if email fails
+      }
 
       toast.success("Thanks for reaching out! We'll be in touch within 24 hours.");
       form.reset();
     } catch (error) {
+      console.error("Submission error:", error);
       toast.error("Failed to submit. Please try again or email us directly at liam@hirephaze.com");
     } finally {
       setIsSubmitting(false);
