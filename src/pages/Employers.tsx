@@ -8,6 +8,7 @@ import { ArrowLeft, CheckCircle, Users, Clock, Target, TrendingUp } from "lucide
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import BookingModal from "@/components/BookingModal";
+import EmployerDiscoveryForm from "@/components/EmployerDiscoveryForm";
 import { Helmet } from "react-helmet";
 
 const pricingModels = [
@@ -200,24 +201,37 @@ const EmployersPage = () => {
                 </div>
               </section>
 
+              {/* Discovery Form */}
+              <section className="mb-20" id="discovery">
+                <header className="text-center mb-12">
+                  <h2 className="text-3xl font-bold text-foreground mb-4">
+                    Tell Us About Your Hiring Needs
+                  </h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Fill out this quick form and we'll get back to you within 24 hours with a tailored proposal.
+                  </p>
+                </header>
+                <EmployerDiscoveryForm />
+              </section>
+
               {/* CTA */}
               <section className="text-center">
                 <Card className="p-12 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
                   <h2 className="text-3xl font-bold text-foreground mb-4">
-                    Ready to Hire Smarter in 2025?
+                    Prefer to Talk First?
                   </h2>
                   <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                    Let's talk about your hiring needs. No pitch deck, no commitment—just a real conversation about what you're looking for.
+                    No pitch deck, no commitment—just a real conversation about what you're looking for.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button size="lg" onClick={() => setIsBookingOpen(true)}>
                       Book a Discovery Call
                     </Button>
-                    <Link to="/#contact">
+                    <a href="#discovery">
                       <Button size="lg" variant="outline">
-                        Send Us Your Job Spec
+                        Fill Out the Form Instead
                       </Button>
-                    </Link>
+                    </a>
                   </div>
                 </Card>
               </section>
