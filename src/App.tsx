@@ -10,6 +10,7 @@ import Employers from "./pages/Employers";
 import Candidates from "./pages/Candidates";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
+import ProfileSetup from "./pages/ProfileSetup";
 import Careers from "./pages/Careers";
 import JobDetails from "./pages/JobDetails";
 import VChat from "./pages/VChat";
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/candidates" element={<Candidates />} />
             <Route path="/about" element={<About />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/profile-setup" element={<ProfileSetup />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/careers/:jobId" element={<JobDetails />} />
             <Route path="/v-chat" element={<VChat />} />
