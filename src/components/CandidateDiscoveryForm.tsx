@@ -90,11 +90,17 @@ const CandidateDiscoveryForm = () => {
       return null;
     }
 
-    const { data: { publicUrl } } = supabase.storage
+    // Create a signed URL for secure access (expires in 7 days for email notification)
+    const { data, error: signError } = await supabase.storage
       .from("resumes")
-      .getPublicUrl(filePath);
+      .createSignedUrl(filePath, 60 * 60 * 24 * 7); // 7 days
 
-    return publicUrl;
+    if (signError) {
+      console.error("Signed URL error:", signError);
+      return null;
+    }
+
+    return data.signedUrl;
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
