@@ -180,11 +180,16 @@ const JobDetails = () => {
           throw new Error("Failed to upload resume");
         }
 
-        const { data: urlData } = supabase.storage
+        // Create a signed URL for secure access (expires in 7 days)
+        const { data: signedData, error: signError } = await supabase.storage
           .from("resumes")
-          .getPublicUrl(fileName);
+          .createSignedUrl(fileName, 60 * 60 * 24 * 7); // 7 days
 
-        resumeUrl = urlData.publicUrl;
+        if (signError) {
+          throw new Error("Failed to generate resume URL");
+        }
+
+        resumeUrl = signedData.signedUrl;
       }
 
       const { error: insertError } = await supabase
