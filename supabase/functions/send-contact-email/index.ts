@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@4.0.0";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -28,26 +29,62 @@ function escapeHtml(unsafe: string): string {
     .replace(/'/g, "&#039;");
 }
 
-// Simple in-memory rate limiter
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
+// Hash IP for privacy (don't store raw IPs)
+async function hashIP(ip: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(ip + Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")?.slice(0, 16));
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
+}
+
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const MAX_REQUESTS = 5;
 
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
+async function checkRateLimit(supabase: any, ipHash: string, endpoint: string): Promise<{ allowed: boolean; remaining: number }> {
+  const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
+  
+  // Get current rate limit record
+  const { data: existing } = await supabase
+    .from("rate_limits")
+    .select("id, count, window_start")
+    .eq("ip_hash", ipHash)
+    .eq("endpoint", endpoint)
+    .single();
 
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return true;
+  if (!existing) {
+    // No record exists, create one
+    await supabase.from("rate_limits").insert({
+      ip_hash: ipHash,
+      endpoint: endpoint,
+      count: 1,
+      window_start: new Date().toISOString(),
+    });
+    return { allowed: true, remaining: MAX_REQUESTS - 1 };
   }
 
-  if (record.count >= MAX_REQUESTS) {
-    return false;
+  // Check if window has expired
+  if (new Date(existing.window_start) < new Date(windowStart)) {
+    // Reset the window
+    await supabase
+      .from("rate_limits")
+      .update({ count: 1, window_start: new Date().toISOString() })
+      .eq("id", existing.id);
+    return { allowed: true, remaining: MAX_REQUESTS - 1 };
   }
 
-  record.count++;
-  return true;
+  // Check if limit exceeded
+  if (existing.count >= MAX_REQUESTS) {
+    return { allowed: false, remaining: 0 };
+  }
+
+  // Increment count
+  await supabase
+    .from("rate_limits")
+    .update({ count: existing.count + 1 })
+    .eq("id", existing.id);
+
+  return { allowed: true, remaining: MAX_REQUESTS - existing.count - 1 };
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -55,20 +92,34 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Initialize Supabase client with service role for rate limiting
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL") ?? "",
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+  );
+
   try {
     // Get client IP for rate limiting
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || 
                req.headers.get("x-real-ip") || 
                "unknown";
 
-    // Check rate limit
-    if (!checkRateLimit(ip)) {
-      console.warn(`Rate limit exceeded for IP: ${ip}`);
+    const ipHash = await hashIP(ip);
+
+    // Check persistent rate limit
+    const { allowed, remaining } = await checkRateLimit(supabase, ipHash, "contact-form");
+    
+    if (!allowed) {
+      console.warn(`Rate limit exceeded for hashed IP on contact-form`);
       return new Response(
         JSON.stringify({ error: "Too many requests. Please try again later." }),
         {
           status: 429,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
+          headers: { 
+            "Content-Type": "application/json",
+            "X-RateLimit-Remaining": "0",
+            ...corsHeaders 
+          },
         }
       );
     }
@@ -77,7 +128,7 @@ const handler = async (req: Request): Promise<Response> => {
     const body = await req.json();
     const validated = contactSchema.parse(body);
 
-    console.log("Sending contact email from:", validated.email);
+    console.log("Sending contact email");
 
     // Escape all user inputs before including in HTML
     const safeName = escapeHtml(validated.name);
@@ -106,6 +157,7 @@ const handler = async (req: Request): Promise<Response> => {
       status: 200,
       headers: {
         "Content-Type": "application/json",
+        "X-RateLimit-Remaining": String(remaining),
         ...corsHeaders,
       },
     });
