@@ -49,15 +49,13 @@ interface Job {
   company: string;
   location: string;
   type: string;
-  salary_min?: number;
-  salary_max?: number;
-  description?: string;
-  requirements?: string[];
-  benefits?: string[];
+  salary_min: number | null;
+  salary_max: number | null;
+  description: string | null;
+  requirements: string | null;
+  benefits: string | null;
   created_at: string;
 }
-
-const ATS_API_URL = "https://orvgbrwfnpfdetxgkfav.supabase.co/functions/v1/public-jobs";
 
 const applicationSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
@@ -110,15 +108,22 @@ const JobDetails = () => {
 
   useEffect(() => {
     const fetchJob = async () => {
+      if (!jobId) return;
+      
       try {
-        const response = await fetch(ATS_API_URL);
-        if (!response.ok) throw new Error("Failed to fetch job");
-        const data = await response.json();
-        const foundJob = (data.jobs || []).find((j: Job) => j.id === jobId);
-        if (!foundJob) {
+        const { data, error } = await supabase
+          .from("job_postings")
+          .select("id, title, company, location, type, salary_min, salary_max, description, requirements, benefits, created_at")
+          .eq("id", jobId)
+          .eq("is_active", true)
+          .maybeSingle();
+
+        if (error) throw error;
+        
+        if (!data) {
           setError("Job not found");
         } else {
-          setJob(foundJob);
+          setJob(data);
         }
       } catch (err) {
         setError("Unable to load job details. Please try again later.");
@@ -127,9 +132,7 @@ const JobDetails = () => {
       }
     };
 
-    if (jobId) {
-      fetchJob();
-    }
+    fetchJob();
   }, [jobId]);
 
   const formatSalary = (min?: number, max?: number) => {
@@ -338,39 +341,29 @@ const JobDetails = () => {
               )}
 
               {/* Requirements */}
-              {job.requirements && job.requirements.length > 0 && (
+              {job.requirements && (
                 <Card>
                   <CardHeader>
                     <CardTitle>Requirements</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2">
-                      {job.requirements.map((req, i) => (
-                        <li key={i} className="flex items-start gap-2 text-muted-foreground">
-                          <span className="text-primary mt-1">•</span>
-                          <span>{req}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="prose prose-sm max-w-none text-muted-foreground">
+                      <p className="whitespace-pre-wrap">{job.requirements}</p>
+                    </div>
                   </CardContent>
                 </Card>
               )}
 
               {/* Benefits */}
-              {job.benefits && job.benefits.length > 0 && (
+              {job.benefits && (
                 <Card>
                   <CardHeader>
                     <CardTitle>Benefits</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2">
-                      {job.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-start gap-2 text-muted-foreground">
-                          <CheckCircle className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                          <span>{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="prose prose-sm max-w-none text-muted-foreground">
+                      <p className="whitespace-pre-wrap">{job.benefits}</p>
+                    </div>
                   </CardContent>
                 </Card>
               )}
