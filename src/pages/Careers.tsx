@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -18,13 +19,11 @@ interface Job {
   company: string;
   location: string;
   type: string;
-  salary_min?: number;
-  salary_max?: number;
-  description?: string;
+  salary_min: number | null;
+  salary_max: number | null;
+  description: string | null;
   created_at: string;
 }
-
-const ATS_API_URL = "https://orvgbrwfnpfdetxgkfav.supabase.co/functions/v1/public-jobs";
 
 const Careers = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -36,11 +35,15 @@ const Careers = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch(ATS_API_URL);
-        if (!response.ok) throw new Error("Failed to fetch jobs");
-        const data = await response.json();
-        setJobs(data.jobs || []);
-        setFilteredJobs(data.jobs || []);
+        const { data, error } = await supabase
+          .from("job_postings")
+          .select("id, title, company, location, type, salary_min, salary_max, description, created_at")
+          .eq("is_active", true)
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+        setJobs(data || []);
+        setFilteredJobs(data || []);
       } catch (err) {
         setError("Unable to load job listings. Please try again later.");
       } finally {
@@ -61,7 +64,7 @@ const Careers = () => {
     setFilteredJobs(filtered);
   }, [searchTerm, jobs]);
 
-  const formatSalary = (min?: number, max?: number) => {
+  const formatSalary = (min: number | null, max: number | null) => {
     if (!min && !max) return null;
     const format = (n: number) => `$${(n / 1000).toFixed(0)}k`;
     if (min && max) return `${format(min)} - ${format(max)}`;

@@ -13,6 +13,7 @@ import Auth from "./pages/Auth";
 import ProfileSetup from "./pages/ProfileSetup";
 import Careers from "./pages/Careers";
 import JobDetails from "./pages/JobDetails";
+import AdminJobs from "./pages/AdminJobs";
 import VChat from "./pages/VChat";
 import VKimi from "./pages/VKimi";
 import VClaude from "./pages/VClaude";
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/profile-setup" element={<ProfileSetup />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/careers/:jobId" element={<JobDetails />} />
+            <Route path="/admin/jobs" element={<AdminJobs />} />
             <Route path="/v-chat" element={<VChat />} />
             <Route path="/v-kimi" element={<VKimi />} />
             <Route path="/v-claude" element={<VClaude />} />
